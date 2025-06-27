@@ -2,40 +2,15 @@
 <html>
 <head>
   <title>Video to MP3 Converter</title>
-  <style>
-    body { font-family: sans-serif; text-align: center; padding: 50px; }
-    input, button { padding: 10px; margin: 10px; }
-  </style>
 </head>
-<body>
-  <h1>🎧 Convert Your Video to MP3</h1>
-  <form id="uploadForm">
-    <input type="file" name="file" accept="video/*" required><br>
-    <button type="submit">Convert to MP3</button>
+<body style="font-family: Arial, sans-serif; padding: 2em;">
+  <h2>🎵 Upload Video File to Convert to MP3</h2>
+  <form action="/convert" method="post" enctype="multipart/form-data">
+    <input type="file" name="file" accept="video/*" required />
+    <br><br>
+    <button type="submit">Convert</button>
   </form>
-  <div id="result"></div>
-
-  <script>
-    const form = document.getElementById("uploadForm");
-    const result = document.getElementById("result");
-
-    form.onsubmit = async (e) => {
-      e.preventDefault();
-      result.innerHTML = "⏳ Converting...";
-      const formData = new FormData(form);
-      const res = await fetch("/api/mp3", {
-        method: "POST",
-        body: formData
-      });
-      if (res.ok) {
-        const blob = await res.blob();
-        const url = URL.createObjectURL(blob);
-        result.innerHTML = `<a href="${url}" download="audio.mp3">⬇️ Download MP3</a>`;
-      } else {
-        const error = await res.json();
-        result.innerHTML = "❌ Error: " + error.error;
-      }
-    };
-  </script>
+  <br>
+  <p>Created by <a href="https://t.me/zerocreations" target="_blank">Zero Creations</a></p>
 </body>
 </html>
